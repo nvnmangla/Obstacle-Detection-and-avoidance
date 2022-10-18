@@ -29,6 +29,7 @@ class Image{
         cv::Mat rgb;
 
     public:
+        Image() = default;
         Image(cv::Mat *img);
         cv::Mat edges = get_edges();
         

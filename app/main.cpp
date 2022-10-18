@@ -16,10 +16,10 @@ int main(){
 
     auto img_pairs = img_set.img_pair_set;
 
-    cv::imshow("frame left",img_pairs[2400].left);
-    cv::imshow("frame right",img_pairs[2400].right);
+    // cv::imshow("frame left",img_pairs[2400].left);
+    // cv::imshow("frame right",img_pairs[2400].right);
 
-    cv::waitKey(0);
+    // cv::waitKey(0);
 
 
 

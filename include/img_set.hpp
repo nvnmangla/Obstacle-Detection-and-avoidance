@@ -15,9 +15,14 @@
  * @brief pointer to left and 
  *        right image in a pair Image set
  */
-struct Image_set{
-  cv::Mat left;
-  cv::Mat right;
+
+
+class Pair{
+
+  public:
+    Image left;
+    Image right;
+    Pair(cv::Mat ,cv::Mat );
 };
 
 
@@ -31,10 +36,7 @@ class Images{
     string calib_path =  "../../data/calib";
     string left_img_dir =  "../../../left/*.pgm";
     string right_img_dir =  "../../../right/*.pgm";
-    // string left_img_dir ;
-    // string right_img_dir ;
-   
-    // creating maps
+    
     cv::Mat mx1; // Mapping param for left image
     cv::Mat my1;
     cv::Mat mx2; // Mapping param for right image
@@ -62,12 +64,7 @@ class Images{
      * @return vector<cv::Mat*> vector of pointers to maps  
      */
     std::vector<cv::Mat*> read_xml();
-    
-    /**
-     * @brief Construct a new std::vector<cv::Mat>read frames object
-     * 
-     * @param img_path path of the image directory
-     */    
+       
     std::vector<std::vector<cv::Mat>>read_frames();
     
     /**
@@ -77,15 +74,15 @@ class Images{
      * @param infdisp // TODO need to figure out 
      * @return int disparity
      */
-    int get_disparity_for_distance(double distance,int* infdisp);
+    int get_disparity_for_distance(double,int* );
 
     /**
      * @brief Construct a new vector<Image set>image set object
      * @return vector of image pair left and right
      */
-    std::vector<Image_set>get_image_pair_set();
+    std::vector<Pair>get_image_pair_set();
 
-    std::vector<Image_set>img_pair_set = get_image_pair_set();
+    std::vector<Pair>img_pair_set = get_image_pair_set();
 
     std::vector<cv::Mat*>  maps = read_xml();  
 

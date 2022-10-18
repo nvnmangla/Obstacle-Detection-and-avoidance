@@ -30,5 +30,5 @@ cv::Mat Image::get_edges(){
 }
 
 Image::Image(cv::Mat *img){
-    rgb = *img;
+    this->rgb = *img;
 }

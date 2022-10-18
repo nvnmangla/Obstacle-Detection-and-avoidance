@@ -17,8 +17,8 @@ int GetSAD(Image img,int blockize,int disparity,int sobelLimit,int pxX,int pxY){
 
     for (int i=startY;i<=endY;i++) {
             for (int j=startX;j<=endX;j++) {
-                uchar sL = laplacianL.at<uchar>(i,j);
-                uchar sR = laplacianR.at<uchar>(i,j+disparity);
+                uchar sL = img.left.edges.at<uchar>(i,j);
+                uchar sR = img.right.edges.at<uchar>(i,j+disparity);
                 leftVal += sL;
                 rightVal += sR;
 
