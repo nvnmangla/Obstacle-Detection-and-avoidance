@@ -29,8 +29,8 @@ class Images{
      * @brief Path to calibration matrices 
      */
     string calib_path =  "../../data/calib";
-    string left_img_dir =  "../../data/left/*.pgm";
-    string right_img_dir =  "../../data/right/*.pgm";
+    string left_img_dir =  "../../../left/*.pgm";
+    string right_img_dir =  "../../../right/*.pgm";
     // string left_img_dir ;
     // string right_img_dir ;
    

@@ -1,8 +1,8 @@
 #include <img_set.hpp>
 
 int main(){
-    string left_dir = "../../data/left/*.pgm";
-    string right_dir = "../../data/*.pgm";
+    string left_dir = "../../../left/*.pgm";
+    string right_dir = "../../../right/*.pgm";
     
 
     //Creating image object
