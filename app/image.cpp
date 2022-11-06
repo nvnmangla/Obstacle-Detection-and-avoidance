@@ -8,15 +8,15 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#include<image.hpp>
+// #include<image.hpp>
 #include<img_set.hpp>
 
 
 cv::Mat Image::get_grayscale(){
 
     cv::Mat gray;
-    if (rgb.channels()<3){
-        return rgb;}
+    if (this->rgb.channels() < 3){
+        gray = this->rgb;}
     else {cv::cvtColor(rgb, gray,cv::COLOR_BGR2BGRA);};
     return gray;
 
@@ -25,10 +25,12 @@ cv::Mat Image::get_grayscale(){
 cv::Mat Image::get_edges(){
 
     cv::Mat lap;
-    cv::Laplacian(grayscale,lap,-1, 3, 1, 0,cv::BORDER_DEFAULT );
+    cv::Laplacian(this->grayscale,lap,-1, 3, 1, 0,cv::BORDER_DEFAULT );
     return lap;
 }
 
-Image::Image(cv::Mat *img){
-    this->rgb = *img;
+Image::Image(cv::Mat img){
+    this->rgb = img;
+    this->grayscale = this->get_grayscale();
+    this->edge = this->get_edges();
 }

@@ -8,6 +8,7 @@
 #include <opencv2/opencv.hpp>
 #include<opencv2/imgproc.hpp>
 #include <vector>
+#include<string>
 
 using std::cout;
 using std::string;
@@ -29,15 +30,13 @@ class Image{
         cv::Mat rgb;
 
     public:
-        Image() = default;
-        Image(cv::Mat *img);
-        cv::Mat edges = get_edges();
-        
-        // grayscale = rgb if rgb has  < 3 channels 
-        cv::Mat grayscale = get_grayscale();
+        cv::Mat edge; //= get_edges();
+        cv::Mat grayscale; //= get_grayscale();
         
         cv::Mat get_grayscale();
         cv::Mat get_edges();        
+        Image(cv::Mat img);
+
 };
 
 

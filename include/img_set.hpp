@@ -11,31 +11,34 @@
 #ifndef IMG_SET_HPP_
 #define IMG_SET_HPP_
 #include<image.hpp>
-/**
- * @brief pointer to left and 
- *        right image in a pair Image set
- */
+// /**
+//  * @brief pointer to left and 
+//  *        right image in a pair Image set
+//  */
+// struct Pair{
+//   Image left;
+//   Image right;
+//   public:
+//     Pair(cv::Mat &img1,cv::Mat &img2){
+//         Image im1(img1);
+//         Image im2(img2);
+//         this->left = im1;
+//         this->right = im2;
+//     }
+
+// };
 
 
-class Pair{
-
-  public:
-    Image left;
-    Image right;
-    Pair(cv::Mat ,cv::Mat );
-};
-
-
-class Images{
+class Image_set{
 
   private:  
     
     /**
      * @brief Path to calibration matrices 
      */
-    string calib_path =  "../../data/calib";
-    string left_img_dir =  "../../../left/*.pgm";
-    string right_img_dir =  "../../../right/*.pgm";
+    string calib_path; //=  "../../data/calib";
+    string left_img_dir; //=  "../../../left/*.pgm";
+    string right_img_dir; //=  "../../../right/*.pgm";
     
     cv::Mat mx1; // Mapping param for left image
     cv::Mat my1;
@@ -44,19 +47,15 @@ class Images{
     cv::Mat Q; //= get_qmat();// Q matrix 
   
   public:
-    // constructor 
- 
-    
-    // Images(string* left_dir, string* right_dir){
-      
-    //   left_img_dir = *left_dir;
-    //   right_img_dir = *right_dir;
-     
-    // }
-      
-    std::vector<cv::Mat> img_l_set = read_frames()[0];
-    std::vector<cv::Mat> img_r_set = read_frames()[1];
+    std::vector<cv::Mat> img_l_set; // = read_frames()[0];
+    std::vector<cv::Mat> img_r_set;  // = read_frames()[1];
 
+    // constructor 
+
+    
+  Image_set(string*, string*,string*);
+      
+    
 
     /**
      * @brief read xml files mx1,my1 ... 
@@ -80,11 +79,12 @@ class Images{
      * @brief Construct a new vector<Image set>image set object
      * @return vector of image pair left and right
      */
-    std::vector<Pair>get_image_pair_set();
+    // std::vector<Pair<Image>>img_pair_set; // = get_image_pair_set();
+// 
+    // void get_image_pair_set();
 
-    std::vector<Pair>img_pair_set = get_image_pair_set();
 
-    std::vector<cv::Mat*>  maps = read_xml();  
+    std::vector<cv::Mat*>  maps; // = read_xml();  
 
 };
 

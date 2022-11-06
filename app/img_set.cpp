@@ -1,6 +1,6 @@
 #include <img_set.hpp>
 
-std::vector<cv::Mat *> Images::read_xml()
+std::vector<cv::Mat *> Image_set::read_xml()
 {
     cv::FileStorage fs_mx1(calib_path + "/mx1.xml", 0);
     cv::FileStorage fs_my1(calib_path + "/my1.xml", 0);
@@ -9,11 +9,11 @@ std::vector<cv::Mat *> Images::read_xml()
     cv::FileStorage fs_Q(calib_path + "/Q.xml", 0);
 
     // building cv::mat out of xmls
-    fs_mx1["mx1"] >> mx1;
-    fs_my1["my1"] >> my1;
-    fs_mx2["mx2"] >> mx2;
-    fs_my2["my2"] >> my2;
-    fs_Q["Q"] >> Q;
+    fs_mx1["mx1"] >> this->mx1;
+    fs_my1["my1"] >> this->my1;
+    fs_mx2["mx2"] >> this->mx2;
+    fs_my2["my2"] >> this->my2;
+    fs_Q["Q"] >> this->Q;
 
     fs_mx1.release();
     fs_my1.release();
@@ -25,7 +25,7 @@ std::vector<cv::Mat *> Images::read_xml()
     return maps;
 }
 
-std::vector<std::vector<cv::Mat>> Images::read_frames()
+std::vector<std::vector<cv::Mat>> Image_set::read_frames()
 {
 
     std::vector<std::vector<cv::Mat>> frames;
@@ -54,7 +54,7 @@ std::vector<std::vector<cv::Mat>> Images::read_frames()
 }
 
 // TODO Read and comment this
-int Images::get_disparity_for_distance(double distance, int *infdisp)
+int Image_set::get_disparity_for_distance(double distance, int *infdisp)
 {
     int min_search = -100;
     int max_search = 100;
@@ -100,23 +100,36 @@ int Images::get_disparity_for_distance(double distance, int *infdisp)
     return best_disparity;
 }
 
-std::vector<Pair> Images::get_image_pair_set()
-{
 
-    std::vector<Pair> img_set;
 
-    for (int i{}; i < static_cast<int>(img_l_set.size()); i++)
-    {
+// void Image_set::get_image_pair_set()
+// {
 
-        Pair img_pair(img_l_set[i], img_r_set[i]);
+//     std::vector<Pair<Image>> img_set;
 
-        img_set.push_back(img_pair);
+//     for (int i{}; i < static_cast<int>(img_l_set.size()); i++)
+//     {
+//         cv::Mat imgl = this->img_l_set[i];
+//         cv::Mat imgr = this->img_r_set[i];
+
+//         Pair<Image> p(imgl,imgr);
+
+//         this->img_pair_set.push_back(p);
+
+//     }
+
+// }
+
+Image_set::Image_set(string* left_dir, string* right_dir,string* calib_dir){
+      
+      left_img_dir = *left_dir;
+      right_img_dir = *right_dir;
+      this->calib_path = *calib_dir;
+      this->img_l_set = read_frames()[0];
+      this->img_r_set = read_frames()[1];
+      this->maps  = read_xml();
+
+
+     
     }
-    return img_set;
-}
-
-Pair::Pair(cv::Mat imgl, cv::Mat imgr)
-{
-    left = Image(&imgl);
-    right = Image(&imgr);
-}
+      
