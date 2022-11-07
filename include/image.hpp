@@ -28,6 +28,7 @@ class Image{
 
     private:
         cv::Mat rgb;
+        float threshvalue = 80;
 
     public:
         cv::Mat edge; //= get_edges();
@@ -36,6 +37,9 @@ class Image{
         cv::Mat get_grayscale();
         cv::Mat get_edges();        
         Image(cv::Mat img);
+        void threshold();
+
+        
 
 };
 
