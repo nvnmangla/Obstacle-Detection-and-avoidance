@@ -1,4 +1,4 @@
-add_executable(shell-app main.cpp img_set.cpp image.cpp)
+add_executable(shell-app main.cpp img_set.cpp image.cpp utils.cpp)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
 )
