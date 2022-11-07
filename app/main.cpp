@@ -27,7 +27,14 @@ int main() {
 
   int disparity = img_set.get_disparity_for_distance(20, &infdisp);
 
-  for (int i{}; i < (int)img_set.img_l_set.size(); i++) {
+  int frame_width = img_set.img_l_set[0].cols;
+  int frame_height = img_set.img_l_set[0].rows;
+  cv::VideoWriter video("../../MyVideo.avi",
+                        cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), 90,
+                        cv::Size(frame_width, frame_height), true);
+
+  int count = static_cast<int>(img_set.img_l_set.size());
+  for (int i{}; i < count; i++) {
     Image left(img_set.img_l_set[i]);
     Image right(img_set.img_r_set[i]);
 
@@ -35,9 +42,9 @@ int main() {
     cv::Mat dekh;
     cv::cvtColor(img[0].grayscale, dekh, cv::COLOR_GRAY2BGR);
 
+    // thresholding edge images
     img[0].threshold();
     img[1].threshold();
-
 
     int startJ = 0;
     int stopJ = img[0].grayscale.cols - (disparity + blockize);
@@ -57,11 +64,10 @@ int main() {
         int sad = GetSAD(img, blockize, disparity, sobellimit, j, i);
 
         if (sad < threshhold && sad >= 0) {
+          // Invariance Filter 
           if (CheckHorizontalInvariance(img, j, i, blockize, disparity,
                                         sobellimit, threshhold) == false) {
-            
-
-            uchar pxL = img[0].grayscale.at<uchar>(i, j);
+            // uchar pxL = img[0].grayscale.at<uchar>(i, j);
 
             cv::circle(dekh, cv::Point(j, i), 2, cv::Scalar(0, 0, 255), -1);
 
@@ -70,9 +76,16 @@ int main() {
         }
       }
     }
-    cv::imshow("Obstacles",dekh);
-    cv::waitKey(10);
+
+    cv::imshow("Obstacles", dekh);
+    char c = static_cast<char>(cv::waitKey(1));
+    if (c == 'q') {
+      break;
+    }
+
+    video.write(dekh);
   }
 
+  video.release();
   return 0;
 }
